@@ -73,11 +73,11 @@ class Post(models.Model):
         # 先将 Markdown 文本渲染成 HTML 文本
         # strip_tags 去掉 HTML 文本的全部 HTML 标签
         # 从文本摘取前 54 个字符赋给 excerpt
-        if self.excerpt == None:
+        if self.excerpt is None:
             self.excerpt = strip_tags(md.convert(self.body))[:54]
         super().save(*args, **kwargs)
 
-    # 管理url记得导入serverse 第一个参数告诉Django找到blog下detail
+    # 管理url记得导入reverse 第一个参数告诉Django找到blog下detail
     # 第二个参数把路由里的<int:pk> 替换为pk，例如/posts/2/
     def get_absolute_url(self):
         return reverse('blog:detail', kwargs={'pk': self.pk})
